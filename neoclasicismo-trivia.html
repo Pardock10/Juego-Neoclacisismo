@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Trivia: Neoclasicismo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .question {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #0077cc;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .options button:hover {
+      background: #005fa3;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Trivia: Neoclasicismo</h1>
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "¿En qué siglo surge el Neoclasicismo?",
+        options: ["Siglo XV", "Siglo XVII", "Siglo XVIII", "Siglo XX"],
+        answer: 2
+      },
+      {
+        question: "¿Qué característica distingue al Neoclasicismo?",
+        options: ["Exageración y dramatismo", "Imitación de la naturaleza", "Regreso a lo clásico y racional", "Colores muy oscuros"],
+        answer: 2
+      },
+      {
+        question: "¿Qué famoso autor pertenece a este movimiento?",
+        options: ["Molière", "Garcilaso de la Vega", "Sor Juana Inés", "Voltaire"],
+        answer: 3
+      },
+      {
+        question: "¿Qué se valoraba en el Neoclasicismo?",
+        options: ["La razón y la moral", "La emoción y la pasión", "El desorden creativo", "El arte popular"],
+        answer: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      if (currentQuestion < questions.length) {
+        document.getElementById("question").innerText = questions[currentQuestion].question;
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = "";
+        questions[currentQuestion].options.forEach((option, index) => {
+          const button = document.createElement("button");
+          button.innerText = option;
+          button.onclick = () => checkAnswer(index);
+          optionsContainer.appendChild(button);
+        });
+      } else {
+        document.getElementById("quiz").innerHTML = "";
+        document.getElementById("result").innerText = `Juego terminado ??\nTu puntaje: ${score}/${questions.length}`;
+      }
+    }
+
+    function checkAnswer(selected) {
+      if (selected === questions[currentQuestion].answer) {
+        score++;
+        alert("? ¡Correcto!");
+      } else {
+        alert("? Incorrecto");
+      }
+      currentQuestion++;
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
